@@ -7,7 +7,7 @@ function App() {
     <div style={{'display': 'flex', flexDirection:'column'}}>
       <Timer cityOrCountry = {'Toronto'}></Timer>
       <Timer cityOrCountry = {'New York'}></Timer>
-      <Timer cityOrCountry = {'Yekaterinburg'}></Timer>
+      <Timer cityOrCountry = {'Khabarovsk'}></Timer>
       <Timer cityOrCountry = {'India'}></Timer>
       <Timer cityOrCountry = {'Israel'}></Timer>
     </div>

@@ -7,8 +7,10 @@ type TimerProps = {
 }
 export const Timer: React.FC<TimerProps> = (props) => {
     
-    let timeZoneInd: number = getIndex(props.cityOrCountry) ;
+    const timeZoneInd: number = timeZones.findIndex(tz => JSON.stringify(tz).includes(props.cityOrCountry)) ;
     const timeZone: string = timeZones[timeZoneInd].name;
+    const timeZoneName: string = timeZone ? props.cityOrCountry: "Israel"
+
     const [time, setTime] = React.useState(new Date());
     function tick() {
         console.log("tick");
