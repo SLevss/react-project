@@ -27,12 +27,3 @@ export const Timer: React.FC<TimerProps> = (props) => {
          textAlign: "center", fontSize: "2em"}}>Time {time.toLocaleTimeString(undefined,{timeZone})}</label>
     </div>
 }
-function getIndex(cityOrCountry: string ): number {
-    let index = timeZones.findIndex(element =>{
-        return JSON.stringify(element).includes(cityOrCountry);
-    })
-   return index > -1 ? index : getOurIndex();
-}
-function getOurIndex(): number {
-    return timeZones.findIndex(element => Intl.DateTimeFormat().resolvedOptions().timeZone === element.name);
-}
