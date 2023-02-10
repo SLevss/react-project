@@ -1,43 +1,28 @@
-import React from 'react';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
-import { CounterMultiply } from './components/CounterMultiply';
-import { CounterSquare } from './components/CounterSquare';
-import { CounterUpdater } from './components/CounterUpdater';
-import { Login } from './components/Login';
-import { Logout } from './components/Logout';
-import { useSelector } from 'react-redux';
-import { Input } from './components/Input';
+import { Navigator } from './components/navigators/Navigator';
+import { BreadProducts } from './components/pages/BreadProducts';
+import { Customers } from './components/pages/Customers';
+import { DairyProducts } from './components/pages/DairyProducts';
+import { Orders } from './components/pages/Orders';
+import { LayoutConfig } from './models/Layout-config';
+import { productsConfig } from './models/Products-config';
+import { Home } from './components/pages/Home';
 function App() {
-  // const auth: boolean = useSelector<any, boolean>(state => state.auth.authenticated);
-  const userName: string = useSelector<any, string>(state => state.auth.userName);
-  const [operand, setOperand] = React.useState(1);
-  const [factor, setFactor] = React.useState(10);
-  const Admin:string = 'admin';
-  return <div>
-    {userName && <div>
-      <p>{userName}</p>
-      <Input placeHolder={'Enter operand'} inputProcess={function (value: string):
-        string {
-        setOperand(+value);
-        return '';
-      }}></Input>
-      <Input placeHolder={'Enter factor'} inputProcess={function (value: string):
-        string {
-        setFactor(+value);
-        return '';
-      }}></Input>
-    </div>}
-    {userName && <div>
-      <CounterUpdater operand={operand}></CounterUpdater>
-      <CounterSquare></CounterSquare>
-      <CounterMultiply factor={factor}></CounterMultiply>
-    </div>}
-    {userName && <Logout></Logout>}
-    {!userName && <Login loginValidation={
-      (userN: string): boolean => { return userN.includes(Admin) }
-    }></Login>}
-  </div>
+  return <BrowserRouter>
+      <Routes>
+          <Route path='/' element={<Navigator navigConfig={LayoutConfig}/>}>
+              <Route index element={<Home/>}></Route>
+              <Route path='customers' element={<Customers/>}/>
+              <Route path='orders' element={<Orders/>}></Route>
+              <Route path='products' element={<Navigator navigConfig={productsConfig}/>}>
+                    <Route path='dairy' element={<DairyProducts/>}/>
+                    <Route path='bread' element={<BreadProducts/>}/>
+              </Route>
+          </Route>
+              
+      </Routes>
+  </BrowserRouter>
 
 }
 export default App;
