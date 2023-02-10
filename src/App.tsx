@@ -1,13 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import { Navigator } from './components/navigators/Navigator';
+import { LayoutConfig } from './models/Layout-config';
+import { productsConfig } from './models/Products-config';
 import { BreadProducts } from './components/pages/BreadProducts';
 import { Customers } from './components/pages/Customers';
 import { DairyProducts } from './components/pages/DairyProducts';
-import { Orders } from './components/pages/Orders';
-import { LayoutConfig } from './models/Layout-config';
-import { productsConfig } from './models/Products-config';
 import { Home } from './components/pages/Home';
+import { Orders } from './components/pages/Orders';
+
+
 function App() {
   return <BrowserRouter>
       <Routes>
