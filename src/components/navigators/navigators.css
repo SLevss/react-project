@@ -1,12 +1,27 @@
-.navigator-list {
+.layout-list {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 80vw;
     list-style: none;
+    background-color:cornsilk;
+}
+.product-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80vw;
+    list-style: none;
+    background-color:aquamarine;
 }
 @media(min-width: 560px) {
     .navigator-list {
+        flex-direction: row;
+    }
+    .layout-list {
+        flex-direction: row;
+    }
+    .product-list {
         flex-direction: row;
     }
 }
