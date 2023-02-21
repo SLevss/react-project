@@ -1,30 +1,26 @@
-import { NavLink, Outlet } from "react-router-dom"
-import { NavigatorProps } from './../../models/NavigatorProps'
-import './navigators.css'
-type NavigProps = {
-    navigConfig: NavigatorProps;
-}
-export const Navigator: React.FC<NavigProps> = (props) => {
-    function getList(): JSX.Element[] {
-        return props.navigConfig.routeItems.map(item => {
-            return <li className="navigator-item">
-                <NavLink style={({ isActive }) => activingLink(isActive)} to={item.routPath}>{item.label}</NavLink>
-            </li>
-        })
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { NavigatorProps } from "../../model/NavigatorProps"
+import '../navigators/navigators.css'
+import { Box, AppBar, Tabs, Tab } from "@mui/material"
+import React, { useEffect } from "react";
+export const Navigator: React.FC<NavigatorProps> = ({routes }) => {
+    const [tabNumber, setTabNumber] = React.useState(0);
+    const navigate = useNavigate();
+    //
+    useEffect(() => navigate(routes[0].path),[]);
+    function changeTabNumber(event: any, newNumber: number) {
+        setTabNumber(newNumber);
     }
-    function activingLink(isActive: boolean): React.CSSProperties | undefined {
-        let result: React.CSSProperties = {};
-        if (isActive) {
-            result = { backgroundColor: "yellow", color: "green" }
-        }
-        return result;
-    }
-    return <div>
-        <nav>
-            <ul className={props.navigConfig.cssClassName}>
-                {getList()}
-            </ul>
-        </nav>
+    return <Box sx={{ marginTop: "15vh" }}>
+        <AppBar sx={{ backgroundColor: "lightgray" }}>
+            <Tabs value={tabNumber} onChange={changeTabNumber} >
+                {getNavItems(routes)}
+            </Tabs>
+        </AppBar>
         <Outlet></Outlet>
-    </div>
+    </Box>
+}
+function getNavItems(routes: { path: string; label: string }[]): React.ReactNode {
+    return routes.map((r, index) => <Tab component={Link} to={r.path}
+        label={r.label} key={index} />)
 }

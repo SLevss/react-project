@@ -1,4 +1,4 @@
 export type NavigatorProps = {
-    cssClassName: string;
+    className: string;
     routes: {path: string, label: string}[];
 }
