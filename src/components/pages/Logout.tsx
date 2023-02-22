@@ -1,5 +1,5 @@
 import { authActions } from "../../redux/authSlice";
-import {useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux'
 import { Box, Button } from "@mui/material";
 export const Logout: React.FC = ()=>{
     const dispatch = useDispatch();

@@ -11,31 +11,32 @@ import { Login } from './components/pages/Login';
 import { Logout } from './components/pages/Logout';
 import { useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
+
 function App() {
-const auth: string = useSelector<any, string>(state => state.auth.authenticated);
+    const authUser: string = useSelector<any, string>(state => state.auth.authenticated);
     const [routes, setRoutes] = React.useState(layoutConfig.routes);
-    React.useEffect(() => {
-        console.log('auth=', auth);
-        let sRoutes: { path: string; label: string;  }[] = [];
-        if(auth.length==0) {
-             sRoutes = layoutConfig.routes.filter(r => r.label.includes('Login'));
+    useEffect(() => {
+        console.log('authUser=', authUser);
+        let sroutes: { path: string; label: string; flAdmin: boolean; flAuth: boolean; }[] = [];
+        if(authUser.length==0) {
+            sroutes = layoutConfig.routes.filter(r => r.label.includes('Login'));
         } else {
-            if(auth.includes("admin")) {
-                sRoutes = layoutConfig.routes.filter(r => !r.label.includes('Login'));
+            if(authUser.includes("admin")) {
+                sroutes = layoutConfig.routes.filter(r => !r.label.includes('Login'));
             } else {
-                sRoutes = layoutConfig.routes.filter(r => !r.label.includes('Login'));
-                sRoutes = sRoutes.filter(r => !r.label.includes('Add Employees'));
+                sroutes = layoutConfig.routes.filter(r => !r.label.includes('Login'));
+                sroutes = sroutes.filter(r => !r.label.includes('Add Employees'));
             }
-            sRoutes[sRoutes.findIndex( r => r.path.includes('/logout'))].label = auth;
+            sroutes[sroutes.findIndex( r => r.path.includes('/logout'))].label = authUser;
         }
-        setRoutes(sRoutes);
+        setRoutes(sroutes);
     
-       }, [auth])
+       }, [authUser])
     
 
 return <BrowserRouter>
       <Routes>
-          <Route path='/' element={<Navigator routes={routes} className={''}  />}>
+          <Route path='/' element={<Navigator routes={routes}  />}>
               <Route index element={<Employees/>}/>
               <Route path='add' element={<AddEmployee/>}/>
               <Route path='statistics/age' element={<AgeStatistics/>}/>
@@ -45,6 +46,6 @@ return <BrowserRouter>
           </Route>
       </Routes>
   </BrowserRouter>
-}
 
+}
 export default App;

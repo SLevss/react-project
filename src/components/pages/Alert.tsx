@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 type AlertProps = {
     type: "warn"|"info"|"error";
@@ -10,5 +11,7 @@ export const Alert: React.FC<AlertProps> = ({type, message}) => {
         case "info": backGround = "green"; break;
         case "warn": backGround = "yellow"
     }
-    return <p style={{backgroundColor: backGround, color: "white", fontWeight: "bold"}}>{message}</p>
+    return <Box> 
+    <Typography style={{backgroundColor: backGround, color: "white", fontWeight: "bold"}}>{message}</Typography>
+    </Box>
 }

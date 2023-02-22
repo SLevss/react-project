@@ -6,12 +6,12 @@ import { Box, Typography } from "@mui/material";
 export const Login: React.FC = ()=>{
     const dispatch = useDispatch();
     
-    return <div>
+    return <Box>
         <Typography>Login</Typography>
         <Input placeHolder={"type username for login"} inputProcess={function (value: string): string {
             dispatch(authActions.login(value))
             return '';
         } }></Input>
         
-        </div>
+        </Box>
 }
