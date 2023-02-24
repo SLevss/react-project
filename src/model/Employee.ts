@@ -4,5 +4,4 @@ export type Employee = {
     birthDate: string;
     department: string;
     salary: number;
-    
 }

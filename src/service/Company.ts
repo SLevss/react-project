@@ -1,26 +1,18 @@
 import { Employee } from "../model/Employee";
 
 export class Company {
-   private employees: Employee[] = [];
+    private employees: Employee[] = [];
     addEmployee(empl: Employee): void {
         this.employees.push(empl);
     }
     updateEmployee(empl: Employee): void {
-        const emplUpdated = this.getEmployee(empl.id);
-        console.log(empl.id, empl.department, empl.salary);
-        if (emplUpdated != null) {
-            empl.department = emplUpdated.department;
-            empl.name = emplUpdated.name;
-            empl.birthDate = emplUpdated.birthDate;
-            if(emplUpdated.salary >= 20000) {
-                empl.salary = Math.round(emplUpdated.salary*0.9);
-            } else {
-                empl.salary = Math.round(emplUpdated.salary*1.1);
-            }
-            console.log(emplUpdated.salary, empl.salary);
-            this.removeEmployee(empl.id);
-            this.addEmployee(empl);
-       }
+        const index = this.employees.findIndex(e => e.id == empl.id);
+        
+        if (index >= 0 ) {
+           
+           this.employees[index] = empl;
+        }
+        
     }
     getEmployee(id: number): Employee | null {
         const index: number = this.employees.findIndex(e => e.id === id);
