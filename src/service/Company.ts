@@ -1,8 +1,11 @@
 import { Employee } from "../model/Employee";
+import employeeConfig from "../config/employee-config.json";
+import { getRandomNumber } from "../utils/random";
 
 export class Company {
     private employees: Employee[] = [];
     addEmployee(empl: Employee): void {
+        empl.id = getEmployeeId(this.employees);
         this.employees.push(empl);
     }
     updateEmployee(empl: Employee): void {
@@ -26,3 +29,11 @@ export class Company {
         return this.employees.slice();
     }
 }
+    function getEmployeeId(employees: Employee[]): number {
+        const {minId, maxId} = employeeConfig;
+        let id: number = getRandomNumber(minId, maxId,true, true);
+        while(employees.findIndex(emp => emp.id === id) >= 0) {
+            id = getRandomNumber(minId, maxId,true, true);
+        } 
+        return id;
+    }   

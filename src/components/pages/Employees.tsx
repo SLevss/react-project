@@ -1,13 +1,18 @@
 import React from 'react';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
+import { EmployeeForm } from '../forms/EmployeeForm';
+
 import { Employee } from '../../model/Employee';
 import { DataGrid, GridActionsCellItem, GridColumns } from '@mui/x-data-grid';
-import { Delete, Edit } from '@mui/icons-material';
+import { Delete, Edit,PersonAdd } from '@mui/icons-material';
 import './table.css'
 import { employeesActions } from '../../redux/employees-slice';
 export const Employees: React.FC = () => {
+    const [flNewEmpl, FlEmpl] = React.useState(false);
+    const [flEdit, FlEdit] = React.useState(false);
     const dispatch = useDispatch();
+    const selectedEmployee = React.useRef<Employee>();
     const authUser = useSelector<any, string>(state => state.auth.authenticated);
     const columns = React.useRef<GridColumns>([
         {
@@ -41,6 +46,11 @@ export const Employees: React.FC = () => {
                                 dispatch(employeesActions.updateEmployee(emplCopy))
                             }
                         }
+                        } />,
+                        <GridActionsCellItem label='add' icon={<PersonAdd />}
+                        onClick={() => {
+                            FlEmpl(true);
+                        }
                         } />
                 ] : [];
             }
@@ -49,9 +59,22 @@ export const Employees: React.FC = () => {
     ])
     const employees = useSelector<any, Employee[]>(state => state.company.employees);
     return <Box sx={{ height: "80vh", width: "80vw" }}>
-        <DataGrid columns={columns.current} rows={employees} />
+       {!flEdit && !flNewEmpl && <DataGrid columns={columns.current} rows={employees} />}
+       {flEdit && !flNewEmpl && <EmployeeForm  submitFn={ (employee) => {
+            dispatch(employeesActions.updateEmployee(employee));
+            FlEdit(false);
+            return true;
+        }} employeeUpdate={selectedEmployee.current}/>}
+        {flNewEmpl && !flEdit && <EmployeeForm  submitFn={ (employee) => {
+            dispatch(employeesActions.addEmployee(employee));
+            FlEmpl(false);
+            return true;
+        }} />}
+
     </Box>
 }
+
+
 function getListItems(employees: Employee[]): React.ReactNode {
     return employees.map((empl, index) => <ListItem key={index}><Typography>{JSON.stringify(empl)}</Typography></ListItem>)
 }
