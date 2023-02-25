@@ -7,6 +7,7 @@ export const layoutConfig: NavigatorProps = {
          flAuth: true, flAdmin: false},
         { label: 'Salary Statistics', path: '/statistics/salary',
          flAuth: true, flAdmin: false },
+         { label: 'Generation', path: '/generation', flAuth: true, flAdmin: true },
          {label: 'Logout', path: '/logout', flAuth: true},
          {label: 'Login', path: '/login', flAuth: false}
 

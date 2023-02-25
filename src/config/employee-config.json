@@ -7,5 +7,7 @@
     "minSalary": 5000,
     "maxSalary": 50000,
     "minBirthYear": 1950,
-    "maxBirthYear": 2003
+    "maxBirthYear": 2003,
+    "minGeneration": 1,
+    "maxGeneration": 200
 }
