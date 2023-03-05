@@ -9,5 +9,5 @@
     "minBirthYear": 1950,
     "maxBirthYear": 2003,
     "minGeneration": 1,
-    "maxGeneration": 200
+    "maxGeneration":50
 }
